@@ -27,7 +27,17 @@ _arrayItems()
 {
 }
 
+bool XJSONItem::HasIndex(const XSDK::XString& index)
+{
+   X_STHROW(XJSONException,("Not Implemented"));
+}
+
 XIRef<XJSONItem> XJSONItem::Index(const XSDK::XString& index)
+{
+   X_STHROW(XJSONException,("Not Implemented"));
+}
+
+bool XJSONItem::HasIndex(const size_t& index)
 {
    X_STHROW(XJSONException,("Not Implemented"));
 }
@@ -234,6 +244,14 @@ XIRef<XJSONItem> XJSONObject::GetObjectMember(const XSDK::XString& name)
 
     return XIRef<XJSONItem>();
 }
+
+bool XJSONObject::HasIndex(const XSDK::XString& index)
+{
+    if ( _objectDefinition.Find(index) != NULL )
+        return true;
+    return false;
+}
+
 XIRef<XJSONItem> XJSONObject::Index(const XSDK::XString& index)
 {
    if ( _objectDefinition.Find(index) == NULL )
@@ -327,6 +345,13 @@ XJSONArray::XJSONArray(): XJSONItem()
 }
 XJSONArray::~XJSONArray()
 {
+}
+
+bool XJSONArray::HasIndex(const size_t& index)
+{
+    if( index < _arrayItems.size() )
+        return true;
+    return false;
 }
 
 XIRef<XJSONItem> XJSONArray::Index(const size_t& index)

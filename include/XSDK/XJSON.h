@@ -69,7 +69,9 @@ namespace XSDK
 
         X_API virtual size_t Parse(XSDK::XString& str)=0;
 
+        X_API virtual bool HasIndex( const XSDK::XString& index );
         X_API virtual XIRef<XJSONItem> Index(const XSDK::XString& index);
+        X_API virtual bool HasIndex( const size_t& index );
         X_API virtual XIRef<XJSONItem> Index(const size_t& index);
         X_API virtual size_t Count();
 
@@ -130,6 +132,7 @@ namespace XSDK
 
         X_API size_t Parse(XSDK::XString& str);
 
+        X_API bool HasIndex(const XSDK::XString& index);
         X_API XIRef<XJSONItem> Index(const XSDK::XString& index);
 
 
@@ -148,6 +151,8 @@ namespace XSDK
         X_API XIRef<XJSONItem> AccessElement(const size_t& index);
 
         X_API size_t Parse(XSDK::XString& str);
+
+        X_API bool HasIndex(const size_t& index);
 
         X_API XIRef<XJSONItem> Index(const size_t& index);
 
