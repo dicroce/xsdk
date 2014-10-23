@@ -151,6 +151,7 @@ XSSLSocket::XSSLSocket( uint32_t defaultRecvBufferSize ) :
 {
     _ctx = SSL_CTX_new( SSLv23_method() );
     SSL_CTX_set_options( _ctx, SSL_OP_NO_SSLv2 );
+    SSL_CTX_set_options( _ctx, SSL_OP_NO_SSLv3 );
     SSL_CTX_set_default_passwd_cb( _ctx, _PrivateKeyPasswordCB );
     SSL_CTX_set_default_passwd_cb_userdata( _ctx, this );
     SSL_CTX_set_cipher_list(_ctx, "HIGH:MEDIUM");
@@ -869,7 +870,19 @@ int XSSLSocket::_HandleError( int error, XDuration& waitTime )
         return XSSL_ERROR_CRITICAL;
 
     bool timedOut;
-    switch ( SSL_get_error(_ssl, error ) )
+    //This line converts the error we get from doing IO into
+    //a value we can pass to the switch statement
+    int sslError = SSL_get_error(_ssl, error );
+
+    //This loop pops errors off of the openssl error queue
+    //so we don't end up with an ever growing queue
+    unsigned long errVal = ERR_get_error();
+    while( errVal != 0 )
+    {
+        X_LOG_ERROR("SSL Error: %s", ERR_error_string(errVal, NULL) );
+        errVal = ERR_get_error();
+    }
+    switch ( sslError )
     {
         case SSL_ERROR_NONE:
             {
@@ -888,7 +901,6 @@ int XSSLSocket::_HandleError( int error, XDuration& waitTime )
             }
         default:
             {
-                //X_LOG_WARNING("ERRNO %s", strerror(errno));
                 return XSSL_ERROR_CRITICAL;
             }
     }

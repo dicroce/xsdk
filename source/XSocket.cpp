@@ -121,10 +121,6 @@ XSocket::XSocket( XSocketType type ) : XStreamIO(),
 XSocket::~XSocket() throw()
 {
     Close();
-
-    // Lock to decrement counter
-    XGuard g( _sokLock );
-    _sokCount--;
 }
 
 void XSocket::SocketStartup()
@@ -355,6 +351,7 @@ void XSocket::Close()
     int err = 0;
 
     _sok = 0;
+    FULL_MEM_BARRIER();
 
 #ifdef WIN32
     if( sokTemp != 0 )
