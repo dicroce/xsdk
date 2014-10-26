@@ -67,6 +67,21 @@ endif(CMAKE_SYSTEM MATCHES "Linux-")
 set(WINDOWS_LIBS DbgHelp ws2_32 iphlpapi rpcrt4.lib)
 set(LINUX_LIBS pthread rt dl uuid ssl crypto)
 
+# This blob is about SSL. Basically, if we're being built on Windows we need
+# to add some additional libraries.
+if(NOT CMAKE_BUILD_TYPE)
+  SET(CMAKE_BUILD_TYPE Debug)
+endif(NOT CMAKE_BUILD_TYPE)
+if(CMAKE_SYSTEM MATCHES "Windows")
+  include_directories("${CMAKE_CURRENT_SOURCE_DIR}/OpenSSL-Win64/include")
+  link_directories("${CMAKE_CURRENT_SOURCE_DIR}/OpenSSL-Win64")
+  if(CMAKE_BUILD_TYPE EQUAL "Debug")
+    set(WINDOWS_LIBS ${WINDOWS_LIBS} libeay32MDd.lib ssleay32MDd.lib)
+  else()
+    set(WINDOWS_LIBS ${WINDOWS_LIBS} libeay32MD ssleay32MD)
+  endif()
+endif(CMAKE_SYSTEM MATCHES "Windows")
+
 # XSDK is special and has to create ../devel_artifacts for everyone else.
 file(MAKE_DIRECTORY ../devel_artifacts)
 
@@ -77,3 +92,4 @@ install(FILES cmake/common.cmake DESTINATION "${devel_artifacts_path}/build")
 install(FILES cmake/base_lib.cmake DESTINATION "${devel_artifacts_path}/build")
 install(FILES cmake/base_ut.cmake DESTINATION "${devel_artifacts_path}/build")
 install(FILES cmake/base_app.cmake DESTINATION "${devel_artifacts_path}/build")
+install(DIRECTORY OpenSSL-Win64/include DESTINATION include USE_SOURCE_PERMISSIONS)
