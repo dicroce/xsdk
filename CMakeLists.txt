@@ -92,4 +92,7 @@ install(FILES cmake/common.cmake DESTINATION "${devel_artifacts_path}/build")
 install(FILES cmake/base_lib.cmake DESTINATION "${devel_artifacts_path}/build")
 install(FILES cmake/base_ut.cmake DESTINATION "${devel_artifacts_path}/build")
 install(FILES cmake/base_app.cmake DESTINATION "${devel_artifacts_path}/build")
-install(DIRECTORY OpenSSL-Win64/include DESTINATION include USE_SOURCE_PERMISSIONS)
+
+if(CMAKE_SYSTEM MATCHES "Windows")
+install(DIRECTORY OpenSSL-Win64/include/openssl DESTINATION include USE_SOURCE_PERMISSIONS)
+endif(CMAKE_SYSTEM MATCHES "Windows")
