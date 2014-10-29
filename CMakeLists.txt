@@ -78,7 +78,7 @@ if(CMAKE_SYSTEM MATCHES "Windows")
   if(CMAKE_BUILD_TYPE EQUAL "Debug")
     set(WINDOWS_LIBS ${WINDOWS_LIBS} libeay32MDd.lib ssleay32MDd.lib)
   else()
-    set(WINDOWS_LIBS ${WINDOWS_LIBS} libeay32MD ssleay32MD)
+    set(WINDOWS_LIBS ${WINDOWS_LIBS} libeay32MD.lib ssleay32MD.lib)
   endif()
 endif(CMAKE_SYSTEM MATCHES "Windows")
 
