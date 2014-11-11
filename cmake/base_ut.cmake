@@ -1,4 +1,6 @@
 
+message("devel_artifacts path: ${devel_artifacts_path}")
+
 # First, append our compile options...
 #
 
@@ -7,6 +9,7 @@ set(CMAKE_BUILD_TYPE Debug)
 macro(add_compiler_flag CONFIG FLAG)
     if("${CONFIG}" STREQUAL "Both")
         set(CMAKE_CXX_FLAGS "${FLAG} ${CMAKE_CXX_FLAGS}")
+        set(CMAKE_CXX_FLAGS_RELEASE "${FLAG} ${CMAKE_CXX_FLAGS_RELEASE}")
     elseif("${CONFIG}" STREQUAL "Debug")
         set(CMAKE_CXX_FLAGS_DEBUG "${FLAG} ${CMAKE_CXX_FLAGS_DEBUG}")
     elseif("${CONFIG}" STREQUAL "Release")
@@ -29,8 +32,13 @@ if(CMAKE_SYSTEM MATCHES "Linux-")
     add_definitions(-D_REENTRANT)
     set(CMAKE_EXE_LINKER_FLAGS -rdynamic)
 elseif(CMAKE_SYSTEM MATCHES "Windows")
+
+    if(${CMAKE_SIZEOF_VOID_P} EQUAL 8)
+        add_definitions(-DWIN64)
+    endif(${CMAKE_SIZEOF_VOID_P} EQUAL 8)
+
+    add_definitions(-DWIN32_LEAN_AND_MEAN)
     add_definitions(-DWIN32)
-#    add_definitions(-D_USE_32BIT_TIME_T)
     add_definitions(-DUNICODE)
     add_definitions(-D_UNICODE)
     add_definitions(-DNOMINMAX)
@@ -38,11 +46,20 @@ elseif(CMAKE_SYSTEM MATCHES "Windows")
     add_definitions(-D_CRT_NONSTDC_NO_DEPRECATE)
     add_definitions(-D__inline__=__inline)
     add_definitions(-D_SCL_SECURE_NO_WARNINGS)
-    add_compiler_flag(Both /GF)    # Enable read-only string pooling.
-    add_compiler_flag(Both /EHsc)  # Make sure that destructors get executed when exceptions exit C++ code.
-    add_compiler_flag(Debug /ZI)   # Generate pdb files which support Edit and Continue Debugging
-    add_compiler_flag(Debug /Gm)   # Enable minimal rebuild
-    add_compiler_flag(Debug /FR)   # Create an .sbr file with complete symbolic information.
+    add_compiler_flag(Both /MT)
+    # Enable read-only string pooling.
+    add_compiler_flag(Both /GF)
+    # Make sure that destructors get executed when exceptions exit C++ code.
+    add_compiler_flag(Both /EHsc)
+    # Generate pdb files which support Edit and Continue Debugging
+    add_compiler_flag(Debug /Zi)
+    # Enable minimal rebuild
+    add_compiler_flag(Debug /Gm)
+    # Create an .sbr file with complete symbolic information.
+    add_compiler_flag(Debug /FR)
+    add_compiler_flag(Debug /MDd)
+    add_compiler_flag(Release /MD)
+    add_compiler_flag(Release /O2)
     SET_PROPERTY(GLOBAL PROPERTY USE_FOLDERS ON)
 endif(CMAKE_SYSTEM MATCHES "Linux-")
 
@@ -50,21 +67,21 @@ endif(CMAKE_SYSTEM MATCHES "Linux-")
 # Now, setup our artifact install root and add our default header and lib paths.
 #
 
-set(DEVEL_INSTALL_PATH "../devel_artifacts")
-set(CMAKE_INSTALL_PREFIX ${DEVEL_INSTALL_PATH})
-get_filename_component(ABSOLUTE_INC_DIR ../../devel_artifacts/include ABSOLUTE)
-include_directories(include ${ABSOLUTE_INC_DIR})
-get_filename_component(ABSOLUTE_LIB_DIR ../../devel_artifacts/lib ABSOLUTE)
-link_directories(${ABSOLUTE_LIB_DIR})
+set(CMAKE_INSTALL_PREFIX ${devel_artifacts_path})
+include_directories(include "${devel_artifacts_path}/include")
+link_directories("${devel_artifacts_path}/lib")
 
+if(CMAKE_SYSTEM MATCHES "Linux-")
+  include_directories("/usr/local")
+  link_directories("/usr/local/lib")
+endif(CMAKE_SYSTEM MATCHES "Linux-")
 
 # Add our executable target
 #
 
 add_executable(${PROJECT_NAME} ${SOURCES})
 
-
-# Add our libraries...
+# Add platform appropriate libraries correct targets...
 #
 
 if(CMAKE_SYSTEM MATCHES "Windows")
@@ -72,13 +89,3 @@ if(CMAKE_SYSTEM MATCHES "Windows")
 elseif(CMAKE_SYSTEM MATCHES "Linux")
     target_link_libraries(${PROJECT_NAME} ${LINUX_LIBS} ${COMMON_LIBS})
 endif(CMAKE_SYSTEM MATCHES "Windows")
-
-
-# rpath setup
-#
-
-set(CMAKE_SKIP_BUILD_RPATH false)
-set(CMAKE_BUILD_WITH_INSTALL_RPATH true)
-set(CMAKE_INSTALL_RPATH_USE_LINK_PATH true)
-set(CMAKE_INSTALL_RPATH "./libs" ${DEVEL_INSTALL_PATH})
-
