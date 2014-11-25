@@ -1,7 +1,8 @@
 cmake_minimum_required(VERSION 2.8)
 project(XSDK)
 
-set(SOURCES source/LargeFiles.cpp
+set(SOURCES source/XMD5.cpp
+            source/LargeFiles.cpp
             source/OS.cpp
             source/Rand.cpp
             source/StackTrace.cpp
