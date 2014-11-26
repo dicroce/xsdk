@@ -9,7 +9,7 @@ class XMD5Test : public test_fixture
 {
 public:
     TEST_SUITE(XMD5Test);
-        TEST(XMD5Test::TestConstructor);
+        TEST(XMD5Test::TestHashBasic);
     TEST_SUITE_END();
 
     ~XMD5Test() throw() {}
@@ -17,7 +17,7 @@ public:
     void teardown();
 
 protected:
-    void TestConstructor();
+    void TestHashBasic();
 };
 
 #endif

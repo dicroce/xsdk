@@ -23,15 +23,15 @@ namespace XSDK
 class XMD5
 {
 public:
-    XMD5();
-    virtual ~XMD5() throw();
+    X_API XMD5();
+    X_API virtual ~XMD5() throw();
 
-    void Update( const uint8_t* src, size_t size );
+    X_API void Update( const uint8_t* src, size_t size );
 
-    void Finalize();
+    X_API void Finalize();
 
-    void Get( uint8_t* output ); // returns 16 byte MD5
-    XString GetAsString();
+    X_API void Get( uint8_t* output ); // returns 16 byte MD5
+    X_API XString GetAsString();
 
 private:
     uint8_t* _body( const uint8_t* data, size_t size );

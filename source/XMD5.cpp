@@ -32,6 +32,10 @@ XMD5::XMD5() :
 {
 }
 
+XMD5::~XMD5() throw()
+{
+}
+
 void XMD5::Update( const uint8_t* src, size_t size )
 
 {
@@ -116,6 +120,20 @@ void XMD5::Finalize()
     _result[13] = _d >> 8;
     _result[14] = _d >> 16;
     _result[15] = _d >> 24;
+}
+
+void XMD5::Get( uint8_t* output )
+{
+    memcpy( output, _result, 16 );
+}
+
+XString XMD5::GetAsString()
+{
+    return XString::Format( "%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x",
+                            _result[0], _result[1],_result[2], _result[3],
+                            _result[4], _result[5], _result[6], _result[7],
+                            _result[8], _result[9], _result[10], _result[11],
+                            _result[12], _result[13], _result[14], _result[15] );
 }
 
 uint8_t* XMD5::_body( const uint8_t* data, size_t size )
