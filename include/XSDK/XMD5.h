@@ -34,7 +34,7 @@ public:
     X_API XString GetAsString();
 
 private:
-    uint8_t* _body( const uint8_t* data, size_t size );
+    const uint8_t* _body( const uint8_t* data, size_t size );
 
     uint32_t _lo, _hi;
     uint32_t _a, _b, _c, _d;

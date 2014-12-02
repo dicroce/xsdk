@@ -124,11 +124,17 @@ void XMD5::Finalize()
 
 void XMD5::Get( uint8_t* output )
 {
+    if( !_finalized )
+        X_THROW(( "Please Finalize() your XMD5 before calling a Get() method." ));
+
     memcpy( output, _result, 16 );
 }
 
 XString XMD5::GetAsString()
 {
+    if( !_finalized )
+        X_THROW(( "Please Finalize() your XMD5 before calling a Get() method." ));
+
     return XString::Format( "%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x",
                             _result[0], _result[1],_result[2], _result[3],
                             _result[4], _result[5], _result[6], _result[7],
@@ -136,13 +142,13 @@ XString XMD5::GetAsString()
                             _result[12], _result[13], _result[14], _result[15] );
 }
 
-uint8_t* XMD5::_body( const uint8_t* data, size_t size )
+const uint8_t* XMD5::_body( const uint8_t* data, size_t size )
 {
-    const unsigned char *ptr;
+    const uint8_t* ptr;
     uint32_t la, lb, lc, ld;
     uint32_t saved_a, saved_b, saved_c, saved_d;
 
-    ptr = (const unsigned char *)data;
+    ptr = data;
 
     la = _a;
     lb = _b;
@@ -240,5 +246,5 @@ uint8_t* XMD5::_body( const uint8_t* data, size_t size )
     _c = lc;
     _d = ld;
 
-    return (uint8_t*)ptr;
+    return ptr;
 }
