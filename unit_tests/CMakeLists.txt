@@ -57,8 +57,7 @@ set(SOURCES source/framework.cpp
             source/XUDPSenderTest.cpp
             source/XUuidTest.cpp
             source/XVariantTest.cpp
-            source/XWeakRefTest.cpp
-            source/XSSLSocketTest.cpp)
+            source/XWeakRefTest.cpp)
 
 
 set(COMMON_LIBS XSDK)
