@@ -90,9 +90,6 @@ void XUDPSenderTest::TestSend()
 
     for( int ii=0; ii<2; ++ii)
     {
-        printf( "  %s\n", addrs[ii] );
-        fflush( stdout );
-
         _testNum = 0;
         _recvAddress = XSocketAddress::GetAddressFamily(addrs[ii]) == AF_INET ? ip4_addr_any : ip6_addr_any;
         _val = 0;
@@ -124,9 +121,6 @@ void XUDPSenderTest::TestAim()
 
     for( int ii=0; ii<2; ++ii)
     {
-        printf( "  %s\n", addrs[ii] );
-        fflush( stdout );
-
         _testNum =  1;
         _recvAddress = XSocketAddress::GetAddressFamily(addrs[ii]) == AF_INET ? ip4_addr_any : ip6_addr_any;
         _val = 0;

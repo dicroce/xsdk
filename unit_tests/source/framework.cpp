@@ -23,7 +23,6 @@ void ut_usleep(unsigned int usec)
     else
         Sleep(1);
 }
-#define RANDOM rand
 #else
 #include <sys/time.h>
 #include <unistd.h>
@@ -31,7 +30,6 @@ void ut_usleep(unsigned int usec)
 {
     usleep(usec);
 }
-#define RANDOM random
 #endif
 
 // This is a globally (across test) incrementing counter so that tests can avoid having hardcoded port
@@ -74,12 +72,12 @@ int main( int argc, char* argv[] )
     if( !something_failed )
     {
         printf("\nSuccess. ");
-        printf("%s\n",_success_messages[RANDOM()%(sizeof(_success_messages)/sizeof(_success_messages[0]))]);
+        printf("%s\n",_success_messages[random()%(sizeof(_success_messages)/sizeof(_success_messages[0]))]);
     }
     else
     {
         printf("\nFailure. ");
-        printf("%s\n",_failure_messages[RANDOM()%(sizeof(_failure_messages)/sizeof(_failure_messages[0]))]);
+        printf("%s\n",_failure_messages[random()%(sizeof(_failure_messages)/sizeof(_failure_messages[0]))]);
     }
 
     i = _test_fixtures.begin();

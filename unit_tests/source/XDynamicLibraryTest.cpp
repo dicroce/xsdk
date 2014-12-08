@@ -17,7 +17,7 @@ REGISTER_TEST_FIXTURE(XDynamicLibraryTest);
 XSDK::XString VALID_DYNAMIC_LIB = "XSDK.dll";
 XSDK::XString INVALID_DYNAMIC_LIB = "invalid.dll";
 #else
-XSDK::XString VALID_DYNAMIC_LIB = "/usr/local/lib/libXSDK.so";
+XSDK::XString VALID_DYNAMIC_LIB = "libXSDK.so";
 XSDK::XString INVALID_DYNAMIC_LIB = "invalid.so";
 #endif
 

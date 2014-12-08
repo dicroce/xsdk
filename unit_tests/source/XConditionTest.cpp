@@ -175,8 +175,6 @@ void XConditionTest::TestWaitUntil()
 
 void XConditionTest::TestWaitUntilReturnValue()
 {
-    printf("XConditionTest::TestWaitUntilReturnValue() broken.");
-    fflush(stdout);
 #if 0
      _testNum = 3;
      struct timeval now = { 0, 0 };

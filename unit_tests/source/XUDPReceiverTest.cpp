@@ -232,6 +232,7 @@ void XUDPReceiverTest::TestSend()
 
 void XUDPReceiverTest::TestSendMulticast()
 {
+#if 0
     XHash<std::vector<XString> > interfaceAddresses = XSocket::GetInterfaceAddresses(AF_INET);
 
     XString ipAddress;
@@ -276,31 +277,33 @@ void XUDPReceiverTest::TestSendMulticast()
 
     XString addrs[] = { localMulticastAddress };
 
-        printf("  %s\n", addrs[0].c_str());
-        fflush(stdout);
+    printf("  %s\n", addrs[0].c_str());
+    fflush(stdout);
 
-        _testNum = 1;
-        _recvAddress = addrs[0];
-        _val = 0;
+    _testNum = 1;
+    _recvAddress = addrs[0];
+    _val = 0;
 
-        Start();
+    Start();
 
-        x_sleep(1);
+    x_sleep(1);
 
-        XIRef<XMemory> buffer = new XMemory;
-        buffer->Clear();
-        unsigned char* writer = &buffer->Extend(4);
-        *((int*)writer) = 42;
+    XIRef<XMemory> buffer = new XMemory;
+    buffer->Clear();
+    unsigned char* writer = &buffer->Extend(4);
+    *((int*)writer) = 42;
 
-        XUDPSender client(addrs[0], 8686);
+    XUDPSender client(addrs[0], 8686);
 
-        client.Send(buffer->Map(), buffer->GetDataSize());
+    client.Send(buffer->Map(), buffer->GetDataSize());
 
-        x_sleep(1);
+    x_sleep(1);
 
-        UT_ASSERT(_val == 42);
+    UT_ASSERT(_val == 42);
 
-        Join();
+    Join();
+
+#endif
 }
 
 void XUDPReceiverTest::TestAssociatedSend()
