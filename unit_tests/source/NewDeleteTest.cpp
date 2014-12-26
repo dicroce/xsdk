@@ -23,7 +23,7 @@ void NewDeleteTest::TestNewDeleteAligned()
     size_t size = 1234;
     size_t alignment = 0x10;
     unsigned int mask = 0xF;
-    char* p = 0;
+    uint8_t* p = 0;
     UT_ASSERT_NO_THROW( X_NEW_ALIGNED_BUFFER( p, size, alignment ) );
     UT_ASSERT( p != 0 );
     UT_ASSERT( ((size_t)p & mask) == 0 ); // Verify alignment

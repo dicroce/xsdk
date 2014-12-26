@@ -102,9 +102,7 @@ void XConditionTest::TestConditionSimple()
 
     UT_ASSERT( _val == 42 ); // Verify that the worker changed _val...
 
-    const int* retVal = (int*)this->Join(); // Finally, clean up our thread
-
-    UT_ASSERT( *retVal == 42 ); // and verify that it returned the expected value...
+	Join();
 }
 
 void XConditionTest::TestFutureMonoNegative()

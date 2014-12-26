@@ -75,8 +75,6 @@ void XMutexTest::TestMutexSimple()
         _lok.Release();
 
         int* retVal = (int*)Join();
-
-        UT_ASSERT( *retVal == 42 );
     }
 
     catch(XSDK::XException&)
@@ -121,8 +119,7 @@ void XMutexTest::TestLockTwice()
 
         UT_ASSERT( _val == 42 );
 
-        int* retVal = (int*)Join();
-        UT_ASSERT( *retVal == 42 );
+        Join();
     }
 
     catch(XSDK::XException&)
@@ -169,6 +166,5 @@ void XMutexTest::TestLotsOfLocks()
 
         UT_ASSERT( _val == 42 );
 
-        int* retVal = (int*)Join();
-        UT_ASSERT( *retVal == 42 );
+        Join();
 }

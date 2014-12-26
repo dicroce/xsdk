@@ -142,6 +142,8 @@ private:
 
 #define UT_ASSERT_NO_THROW(thing_that_doesnt_throw) do { { bool threw = false; try { thing_that_doesnt_throw; } catch( ... ) { threw=true; } if(threw) {ut_fail_exception e; e.set_msg("Test threw unexpected exception."); e.set_throw_point(__LINE__,__FILE__); throw e;} } } while(false)
 
+#define UT_FAIL(message) do { ut_fail_exception e; e.set_msg(message); e.set_throw_point(__LINE__,__FILE__); throw e; } while(false)
+
 class test_fixture
 {
 public:
@@ -165,24 +167,22 @@ public:
 
             try
             {
-                printf("%-50s [",(*i).test_name.c_str());
                 ((*i).fixture->*(*i).test)();
                 (*i).passed = true;
-                printf("P]\n");
             }
             catch(std::exception& ex)
             {
                 _something_failed = true;
                 (*i).passed = false;
                 (*i).exception_msg = ex.what();
-                printf("F]\n");
             }
             catch(...)
             {
                 _something_failed = true;
                 (*i).passed = false;
-                printf("F]\n");
             }
+
+            printf("[%s] %-50s\n",(_something_failed)?"F":"P",(*i).test_name.c_str());
 
             teardown();
         }
@@ -226,21 +226,21 @@ protected:
     std::string _fixture_name;
 };
 
-extern std::list<test_fixture*> _test_fixtures;
+std::list<test_fixture*>& ut_get_fixtures();
 
 #define REGISTER_TEST_FIXTURE(a) \
 class a##_static_init \
 { \
 public: \
     a##_static_init() { \
-        _test_fixtures.push_back(new a()); \
+        ut_get_fixtures().push_back(new a());   \
     } \
 }; \
 a##_static_init a##_static_init_instance;
 
 // This is a globally (across test) incrementing counter so that tests can avoid having hardcoded port
 // numbers but can avoid stepping on eachothers ports.
-extern int _next_port;
+int& ut_get_next_port();
 
 int ut_next_port();
 

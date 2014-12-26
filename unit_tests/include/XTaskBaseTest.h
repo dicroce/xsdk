@@ -50,7 +50,7 @@ public:
     Thread(bool wait = false, int result = 42)
         : XTaskBase( "mighty_thread" ),
           _wait(wait),
-          _retval(0),
+          _myretval(0),
           _result(result),
           _signaled(false),
           _lock(),
@@ -60,7 +60,7 @@ public:
     Thread(XIRef<XSDK::XThreadPool> pool, bool wait = false, int result = 42)
         : XTaskBase(pool),
           _wait(wait),
-          _retval(0),
+          _myretval(0),
           _result(result),
           _signaled(false),
           _lock(),
@@ -80,9 +80,9 @@ public:
             _signaled = false;
         }
 
-        _retval = _result;
+        _myretval = _result;
 
-        return &_retval;
+        return &_myretval;
     }
 
     void Signal()
@@ -95,7 +95,7 @@ public:
 private:
 
     bool _wait;
-    int  _retval;
+    int  _myretval;
     int  _result;
 
     bool _signaled;

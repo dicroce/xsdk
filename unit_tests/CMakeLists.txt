@@ -38,7 +38,6 @@ set(SOURCES source/framework.cpp
             source/XObjCountTest.cpp
             source/XPathTest.cpp
             source/XRefTest.cpp
-            source/XRWLockTest.cpp
             source/XServerTest.cpp
             source/XSocketAddressTest.cpp
             source/XSocketTest.cpp

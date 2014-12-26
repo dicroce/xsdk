@@ -672,7 +672,7 @@ void XTimeZoneTest::TestDSTSwitches()
     else if(utcOffset == XDuration(HOURS, -5))
         tzName = "Mountain Standard Time";
     else
-        CPPUNIT_FAIL("Unknown Timezone");
+        UT_FAIL("Unknown Timezone");
 
     TestDST(tzName,
             XDateTuple(2012, 3, 11),
@@ -683,4 +683,3 @@ void XTimeZoneTest::TestDSTSwitches()
     #error ">> Unknown OS!"
 #endif
 }
-
