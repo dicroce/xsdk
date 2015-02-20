@@ -1,15 +1,3 @@
-//=============================================================================
-//Copyright (c) 2011 Pelco. All rights reserved.
-//
-// This file contains trade secrets of Pelco.  No part may be reproduced or
-// transmitted in any form by any means or for any purpose without the express
-// written permission of Pelco.
-//
-// $File: XUuidTest.h $
-// $Revision:$
-// $Date:$
-// $Author:$
-//=============================================================================
 
 #ifndef _XSDK_X_UUIDTest_H_
 #define _XSDK_X_UUIDTest_H_
