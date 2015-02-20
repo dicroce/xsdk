@@ -1,17 +1,13 @@
 
-//=============================================================================
-//Copyright (c) 2010 Pelco. All rights reserved.
+//-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 //
-// This file contains trade secrets of Pelco.  No part may be reproduced or
-// transmitted in any form by any means or for any purpose without the express
-// written permission of Pelco.
+// XSDK
+// Copyright (c) 2015 Schneider Electric
 //
-// $File: XCondition.h $
-// $Revision:$
-// $Date:$
-// $Author: Tony Di Croce $
-//=============================================================================
-
+// Use, modification, and distribution is subject to the Boost Software License,
+// Version 1.0 (See accompanying file LICENSE).
+//
+//-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 
 #ifndef XSDK_XCondition_h
 #define XSDK_XCondition_h

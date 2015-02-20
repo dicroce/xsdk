@@ -1,11 +1,20 @@
+
+//-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+//
+// XSDK
+// Copyright (c) 2015 Schneider Electric
+//
+// Use, modification, and distribution is subject to the Boost Software License,
+// Version 1.0 (See accompanying file LICENSE).
+//
+//-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+
 #include "XSDK/XStreamBuffer.h"
 #include "XSDK/XLogger.h"
 #include "XSDK/OS.h"
 #include "XSDK/XMonoClock.h"
 
-
 using namespace XSDK;
-
 
 XStreamBuffer::XStreamBuffer():XStreamIO(),
 _buffers(),

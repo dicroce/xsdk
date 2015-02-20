@@ -1,5 +1,13 @@
 
-
+//-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+//
+// XSDK
+// Copyright (c) 2015 Schneider Electric
+//
+// Use, modification, and distribution is subject to the Boost Software License,
+// Version 1.0 (See accompanying file LICENSE).
+//
+//-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 
 #ifndef XSDK_XStreamBuffer_h
 #define XSDK_XStreamBuffer_h
@@ -7,8 +15,6 @@
 #include "XSDK/XMemory.h"
 #include "XSDK/XStreamIO.h"
 #include "XSDK/XCondition.h"
-
-
 
 namespace XSDK
 {
