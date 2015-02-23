@@ -12,7 +12,6 @@ set(SOURCES source/XMD5.cpp
             source/XBlockingQueue.cpp
             source/XCache.cpp
             source/XCommandQueue.cpp
-            source/XConnBase.cpp
             source/XDateTuple.cpp
             source/XDomParser.cpp
             source/XDomParserNode.cpp
@@ -23,7 +22,6 @@ set(SOURCES source/XMD5.cpp
             source/XGuard.cpp
             source/XHash.cpp
             source/XInternalList.cpp
-            source/XJob.cpp
             source/XJSON.cpp
             source/XListBox.cpp
             source/XLogger.cpp
@@ -33,14 +31,11 @@ set(SOURCES source/XMD5.cpp
             source/XObjCount.cpp
             source/XObjectProxy.cpp
             source/XPath.cpp
-            source/XServer.cpp
             source/XSocketAddress.cpp
             source/XSocket.cpp
             source/XSSLSocket.cpp
-            source/XStackStopWatch.cpp
             source/XStackTrace.cpp
             source/XStopWatch.cpp
-            source/XStreamBuffer.cpp
             source/XString.cpp
             source/XStringSlice.cpp
             source/XSymbol.cpp
@@ -58,8 +53,7 @@ set(SOURCES source/XMD5.cpp
 if(CMAKE_SYSTEM MATCHES "Linux-")
 set(SOURCES ${SOURCES} source/POSIX/Sprintf.cpp
                        source/POSIX/XCondition.cpp
-                       source/POSIX/XMutex.cpp
-                       source/POSIX/XRWLock.cpp)
+                       source/POSIX/XMutex.cpp)
 elseif(CMAKE_SYSTEM MATCHES "Windows")
 set(SOURCES ${SOURCES} source/Win32/XCondition.cpp
                        source/Win32/XMutex.cpp)
