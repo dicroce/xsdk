@@ -25,7 +25,6 @@ set(SOURCES source/framework.cpp
             source/XInternalListTest.cpp
             source/XIRefTest.cpp
             source/XIWeakRefTest.cpp
-            source/XJobTest.cpp
             source/XJSONTest.cpp
             source/XListBoxTest.cpp
             source/DerivedObject.cpp
@@ -38,12 +37,10 @@ set(SOURCES source/framework.cpp
             source/XObjCountTest.cpp
             source/XPathTest.cpp
             source/XRefTest.cpp
-            source/XServerTest.cpp
             source/XSocketAddressTest.cpp
             source/XSocketTest.cpp
             source/XStatisticsTest.cpp
             source/XStopWatchTest.cpp
-            source/XStreamBufferTest.cpp
             source/XStringSliceTest.cpp
             source/XStringTest.cpp
             source/XSystemStatsTest.cpp
