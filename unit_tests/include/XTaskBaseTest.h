@@ -17,7 +17,6 @@ public:
         TEST(XTaskBaseTest::TestCancelThread);
         TEST(XTaskBaseTest::TestPoolJoin);
         TEST(XTaskBaseTest::TestUniqueThreadIDs);
-        TEST(XTaskBaseTest::TestBuildDestroyPool);
         TEST(XTaskBaseTest::TestPool);
         TEST(XTaskBaseTest::TestThreadNames);
         TEST(XTaskBaseTest::TestGetCPU);
@@ -33,7 +32,6 @@ protected:
     void TestUniqueThreadIDs();
     void TestParrallelExecution();
     void TestPool();
-    void TestBuildDestroyPool();
     void TestPoolJoin();
     void TestThreadNames();
     void TestGetCPU();
@@ -49,16 +47,6 @@ public:
 
     Thread(bool wait = false, int result = 42)
         : XTaskBase( "mighty_thread" ),
-          _wait(wait),
-          _myretval(0),
-          _result(result),
-          _signaled(false),
-          _lock(),
-          _cond(_lock)
-    {}
-
-    Thread(XIRef<XSDK::XThreadPool> pool, bool wait = false, int result = 42)
-        : XTaskBase(pool),
           _wait(wait),
           _myretval(0),
           _result(result),

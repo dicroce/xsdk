@@ -104,11 +104,10 @@ void XTaskBaseTest::TestUniqueThreadIDs()
 
     try
     {
-        XIRef<XThreadPool> threadPool = new XThreadPool(3,true);
-        Thread bread(threadPool, false);
-        Thread t1(threadPool, false);
-        Thread t2(threadPool, false);
-        Thread t3(threadPool, false);
+        Thread bread(false);
+        Thread t1(false);
+        Thread t2(false);
+        Thread t3(false);
 
         try
         {
@@ -169,13 +168,12 @@ void XTaskBaseTest::TestPool()
     {
 // I'm disabling this test because 1) it doesn't work 2) I want to rip out the thread pool stuff anyway...
 #if 0
-        XIRef<XThreadPool> threadPool = new XThreadPool(6,true);
-        Thread one(threadPool, true, 1);
-        Thread two(threadPool, true, 2);
-        Thread three(threadPool, true, 3);
-        Thread four(threadPool, true, 4);
-        Thread five(threadPool, true, 5);
-        Thread six(threadPool, true, 6);
+        Thread one(true, 1);
+        Thread two(true, 2);
+        Thread three(true, 3);
+        Thread four(true, 4);
+        Thread five(true, 5);
+        Thread six(true, 6);
 
         UT_ASSERT(!one.IsRunning());
         UT_ASSERT(!two.IsRunning());
@@ -248,8 +246,7 @@ void XTaskBaseTest::TestPool()
 
 void XTaskBaseTest::TestPoolJoin()
 {
-    XIRef<XThreadPool> threadPool = new XThreadPool(3,true);
-    Thread one(threadPool, true, 1);
+    Thread one(true, 1);
 
     for( size_t i = 0; i < 10000; ++i )
     {
@@ -260,25 +257,12 @@ void XTaskBaseTest::TestPoolJoin()
     }
 }
 
-void XTaskBaseTest::TestBuildDestroyPool()
-{
-    {//This test case originally cause the application to crash.
-        XThreadPool pool(100);
-    }
-}
-
-
-
 class SleepyThread : public XSDK::XTaskBase
 {
 public:
 
     X_API SleepyThread (XString name)
         : XTaskBase( name )
-    {}
-
-    X_API SleepyThread(XIRef<XSDK::XThreadPool> pool,XString name)
-        : XTaskBase(pool,name)
     {}
 
     X_API virtual ~SleepyThread() throw() {Join();}
@@ -293,11 +277,10 @@ public:
 
 void XTaskBaseTest::TestParrallelExecution()
 {
-    XIRef<XThreadPool> threadPool = new XThreadPool(3,false);
     XStopWatch sw(true);
-    SleepyThread dopey(threadPool,"dopey");
-    SleepyThread happy(threadPool,"happy");
-    SleepyThread sneezy(threadPool,"sneeeey");
+    SleepyThread dopey("dopey");
+    SleepyThread happy("happy");
+    SleepyThread sneezy("sneeeey");
     dopey.Start();
     happy.Start();
     sneezy.Start();
